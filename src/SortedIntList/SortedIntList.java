@@ -16,7 +16,10 @@ public class SortedIntList {
 	private static final boolean DEFAULT_UNIQUE = false;
 	private static final int DEFAULT_CAPACITY = 10;
 	
-	// Finished.
+	/**
+	 * @param unique Determines whether or not the object is allowed to hold duplicate values (true: cannot, false: can).
+	 * @param capacity Determines the inital length of elementData.
+	 */
 	public SortedIntList(boolean unique, int capacity) {
 		if (capacity < 0) {
 			throw new IllegalArgumentException("Please enter a capacity greater than 0.");
@@ -25,13 +28,17 @@ public class SortedIntList {
 		elementData = new int[capacity];
 	}
 	
-	// Finished.
+	/**
+	 * @param unique Determines whether or not the object is allowed to hold duplicate values (true: cannot, false: can).
+	 */
 	public SortedIntList(boolean unique) {
 		this.unique = unique;
 		elementData = new int[DEFAULT_CAPACITY];
 	}
 
-	// Finished.
+	/**
+	 * @param @param capacity Determines the inital length of elementData.
+	 */
 	public SortedIntList(int capacity) {
 		if (capacity < 0) {
 			throw new IllegalArgumentException("Please enter a capacity greater than 0.");
@@ -42,12 +49,13 @@ public class SortedIntList {
 
 	// Finished.
 	public SortedIntList() {
-
 		this.unique = DEFAULT_UNIQUE;
 		elementData = new int[DEFAULT_CAPACITY];
 	}
 	
-	// TRASH >:[
+	/**
+	 * @param value Value that will be added to elementData[].
+	 */
 	public void add(int value) {
 		if(unique == true) {
 			if (indexOf(value) < 0) {
@@ -60,7 +68,9 @@ public class SortedIntList {
 		}
 	}
 	
-	// Finished.
+	/**
+	 * @param index Index of the value that is to be removed.
+	 */
 	public void remove(int index) {
 		checkIndex(index);
 		for(int i = index; i < size; i++) {
@@ -69,18 +79,25 @@ public class SortedIntList {
 		size--;
 	}
 	
-	// Finished.
+	/**
+	 * @param index Index of the number that is returned.
+	 * @return Returns the value stored at elementData[i].
+	 */
 	public int get(int index) {
 		checkIndex(index);
 		return elementData[index];
 	}
 	
-	// Finished.
+	/**
+	 * returns Returns the size of the object.
+	 */
 	public int size() {
 		return size;
 	}
 	
-	
+	/**
+	 * @returns Returns whether or not elementData is empty.
+	 */
 	public boolean isEmpty() {
 		if(size == 0) {
 			return true;
@@ -89,12 +106,17 @@ public class SortedIntList {
 		}
 	}
 	
-	// Finished.
+	/**
+	 * @param value The value which the method will return an index for.
+	 * @return Returns the index of value (returns negative position if value is not present).
+	 */
 	public int indexOf(int value) {
 		return Arrays.binarySearch(elementData, 0, size, value);
 	}
 	
-	// Finished.
+	/**
+	 * @return Returns the largest number held in elementData[].
+	 */
 	public int max() {
 		if(isEmpty()) {
 			throw new NoSuchElementException("elementData is empty.");
@@ -109,7 +131,9 @@ public class SortedIntList {
 		}
 	}
 	
-	// Finished.
+	/**
+	 * @return Returns the smallest number held in elementData[].
+	 */
 	public int min() {
 		if(isEmpty()) {
 			throw new NoSuchElementException("elementData is empty.");
@@ -145,13 +169,17 @@ public class SortedIntList {
 		}
 	}
 	
-	// Finished.
+	/**
+	 * @return Returns the value of unique.
+	 */
 	public boolean getUnique() {
 		
 		return unique;
 	}
 	
-	// POSSIBLY FIXED: RUN TESTING.
+	/**
+	 * @param unique The value for unique which the method will set unique to.
+	 */
 	public void setUnique(boolean unique) {
 		this.unique = unique;
 		
@@ -163,7 +191,9 @@ public class SortedIntList {
 		}
 	}
 	
-	// Finished.
+	/**
+	 * @return Returns a string representation of elementData[] (from elementData[0] to elementData[size]). <---- CHECK THIS TO ENSURE ACCURATE!
+	 */
 	public String toString(){
 		if(isEmpty()) {
 			return "[]";
@@ -177,7 +207,10 @@ public class SortedIntList {
 		
 	}
 	
-	// Finished.
+	/**
+	 * @param index Index checked to ensure it exists.
+	 * @throws Throws IndexOutOfBoundsException if elementData[index] either doesn't exist, or is >= elementData[size].
+	 */
 	private void checkIndex(int index) {
 		if (index >= size || index < 0) {
 			throw new IndexOutOfBoundsException("Index: " + index + " is out of bounds. \n\t Size: " + 
@@ -185,7 +218,9 @@ public class SortedIntList {
 		}
 	}
 	
-	// Finished.
+	/**
+	 * @param neededCapacity Amount of indices needed.
+	 */
 	private void ensureCapacity(int neededCapacity) {
 		if (elementData.length < neededCapacity){
 			int newCapacity = 2 * elementData.length + 1;
@@ -196,7 +231,10 @@ public class SortedIntList {
 		}
 	}
  		
-	// Finished.
+	/**
+	 * @param index Index where value will be added to the list.
+	 * @param value Value that is added at elementData[index].
+	 */
 	private void add(int index, int value) {
 		checkIndex(index);
 		ensureCapacity(size + 1);
