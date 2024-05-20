@@ -9,7 +9,10 @@ import java.util.*;
  * CSC143
  * J. Toutonghi
  * 
- * Add description here
+ * A class for a sorted integer list.
+ * The user has the option of allowing or banning duplicate inputs, and
+ * also allows for this setting to be changed as needed. The list is automatically
+ * sorted as numbers are added. Various methods are included.
  */
 public class SortedIntList {
 	private int[] elementData;
@@ -19,6 +22,8 @@ public class SortedIntList {
 	private static final int DEFAULT_CAPACITY = 10;
 	
 	/**
+	 * Constructor that accepts two parameters, unique and capacity.
+	 * 
 	 * @param unique Determines whether or not the object is allowed to hold duplicate values (true: cannot, false: can).
 	 * @param capacity Determines the inital length of elementData.
 	 */
@@ -31,6 +36,9 @@ public class SortedIntList {
 	}
 	
 	/**
+	 * Constructor that accepts one parameter, unique,
+	 * and uses a default value for capacity.
+	 * 
 	 * @param unique Determines whether or not the object is allowed to hold duplicate values (true: cannot, false: can).
 	 */
 	public SortedIntList(boolean unique) {
@@ -39,6 +47,10 @@ public class SortedIntList {
 	}
 
 	/**
+	 * Constructor that accepts one parameter, capacity,
+	 * and uses a default value for unique.
+	 * 
+	 * 
 	 * @param @param capacity Determines the inital length of elementData.
 	 */
 	public SortedIntList(int capacity) {
@@ -49,13 +61,20 @@ public class SortedIntList {
 		elementData = new int[capacity];
 	}
 
-	// Finished.
+	/**
+	 * Constructor that uses default values for 
+	 * both unique and capacity.
+	 */
 	public SortedIntList() {
 		this.unique = DEFAULT_UNIQUE;
 		elementData = new int[DEFAULT_CAPACITY];
 	}
 	
 	/**
+	 * Adds a number to the start of elementData.
+	 * If unique == true, binary searching is utilized
+	 * to ensure the given value has not yet been added.
+	 * 
 	 * @param value Value that will be added to elementData[].
 	 */
 	public void add(int value) {
@@ -71,19 +90,23 @@ public class SortedIntList {
 	}
 	
 	/**
+	 * Removes the value at the given index of elementData.
+	 * 
 	 * @param index Index of the value that is to be removed.
 	 */
 	public void remove(int index) {
 		checkIndex(index);
-		for(int i = index; i < size; i++) {
+		for(int i = index; i < size; i++) { // Left shifts the indices after index.
 			elementData[i] = elementData[i + 1];
 		}
-		size--;
+		size--; // Decrements size to account for the removed number.
 	}
 	
 	/**
+	 * Returns the value held at the given index.
+	 * 
 	 * @param index Index of the number that is returned.
-	 * @return Returns the value stored at elementData[i].
+	 * @return Returns the value stored at elementData[index].
 	 */
 	public int get(int index) {
 		checkIndex(index);
@@ -91,6 +114,8 @@ public class SortedIntList {
 	}
 	
 	/**
+	 * Returns the functional size of the SortedIntList.
+	 * 
 	 * returns Returns the size of the object.
 	 */
 	public int size() {
@@ -109,6 +134,9 @@ public class SortedIntList {
 	}
 	
 	/**
+	 * Returns the index of the given value. If the value is not 
+	 * in elementData, the negative position is given.
+	 * 
 	 * @param value The value which the method will return an index for.
 	 * @return Returns the index of value (returns negative position if value is not present).
 	 */
@@ -118,11 +146,12 @@ public class SortedIntList {
 	
 	/**
 	 * @return Returns the largest number held in elementData[].
+	 * @throws Throws NoSuchElementException if elementData is empty.
 	 */
 	public int max() {
-		if(isEmpty()) {
+		if(isEmpty()) { // Throws exception if elementData is empty.
 			throw new NoSuchElementException("elementData is empty.");
-		} else {
+		} else { // Loops through the list until the largest number is found.
 			int max = elementData[0];
 			for(int i = 0; i < size - 1; i++) {
 				if (elementData[i] > max) {
@@ -135,11 +164,12 @@ public class SortedIntList {
 	
 	/**
 	 * @return Returns the smallest number held in elementData[].
+	 * @throws Throws NoSuchElementException if elementData is empty.
 	 */
 	public int min() {
 		if(isEmpty()) {
 			throw new NoSuchElementException("elementData is empty.");
-		} else {
+		} else { // Loops through elementData until the smallest number is found.
 			int min = elementData[0];
 			for(int i = 0; i < size - 1; i++) {
 				if (elementData[i] < min) {
@@ -149,8 +179,14 @@ public class SortedIntList {
 			return min;
 		}
 	}
-	
-	// Finished.
+
+	/**
+	 * Uses binary searching to locate occurences of a given value, counting
+	 * how many times the value is found.
+	 * 
+	 * @param value Integer that is to be counted within elementData.
+	 * @returns count Number of occurences of value within elementData.
+	 */
 	public int count(int value) {
 		SortedIntList temp = new SortedIntList(0); // Create and fill temporay copy of this 
 		for(int i = 0; i < size; i++) {
@@ -175,11 +211,12 @@ public class SortedIntList {
 	 * @return Returns the value of unique.
 	 */
 	public boolean getUnique() {
-		
 		return unique;
 	}
 	
 	/**
+	 * Sets unique to the given value.
+	 * 
 	 * @param unique The value for unique which the method will set unique to.
 	 */
 	public void setUnique(boolean unique) {
@@ -210,6 +247,8 @@ public class SortedIntList {
 	}
 	
 	/**
+	 * Checks the given index to ensure it exists. If not, an error is thrown.
+	 * 
 	 * @param index Index checked to ensure it exists.
 	 * @throws Throws IndexOutOfBoundsException if elementData[index] either doesn't exist, or is >= elementData[size].
 	 */
@@ -221,6 +260,8 @@ public class SortedIntList {
 	}
 	
 	/**
+	 * Ensures that size is large enough.
+	 * 
 	 * @param neededCapacity Amount of indices needed.
 	 */
 	private void ensureCapacity(int neededCapacity) {
@@ -234,6 +275,8 @@ public class SortedIntList {
 	}
  		
 	/**
+	 * Adds a number and sorts elementData.
+	 * 
 	 * @param index Index where value will be added to the list.
 	 * @param value Value that is added at elementData[index].
 	 */
