@@ -150,11 +150,7 @@ public class SortedIntList {
 		}
 	}
 	
-	// Returns the number of times the given value occurs in the list.
-	// Utilizes indexOf(value) to avoid sequential search, then 
-	// moves forward and back from there to get total 
-	// (note: binary search returns an index of value, but not necessarily 1st).
-	// DON'T USE SEQUENTIAL SEARCHING!
+	// Finished.
 	public int count(int value) {
 		SortedIntList temp = new SortedIntList(0); // Create and fill temporay copy of this 
 		for(int i = 0; i < size; i++) {
@@ -164,15 +160,15 @@ public class SortedIntList {
 		boolean lastNum = true; 
 		int count = 0;
 		while(lastNum == true) {
-			if (Arrays.binarySearch(temp.elementData, 0, size, value) < 0) {
+			if (Arrays.binarySearch(temp.elementData, 0, size, value) < 0) { // Returns count when binarySearch() results in a negative position value.
 				return count;
 			}
-			if (elementData[Arrays.binarySearch(temp.elementData, 0, size, value)] == value) {
+			if (elementData[Arrays.binarySearch(temp.elementData, 0, size, value)] == value) { // Increments count when an occurrence of value is found
 				temp.remove(Arrays.binarySearch(temp.elementData, 0, size, value)]);
 				count++;
 			}
 		}
-		return count;
+		return count; // Doesn't like this being removed :/
 	}
 	
 	/**
