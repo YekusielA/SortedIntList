@@ -1,8 +1,7 @@
 package SortedIntList;
 
-import java.util.Scanner;
-
-import java.util.*;
+import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 /**
  * @author Yekusiel Allen
