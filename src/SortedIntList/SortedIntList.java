@@ -1,5 +1,7 @@
 package SortedIntList;
 
+import java.util.Scanner;
+
 import java.util.*;
 
 /**
@@ -154,19 +156,23 @@ public class SortedIntList {
 	// (note: binary search returns an index of value, but not necessarily 1st).
 	// DON'T USE SEQUENTIAL SEARCHING!
 	public int count(int value) {
-		int count = 0;
-		if(indexOf(value) < 0) {
-			for(int i = 0; i < size; i++) {
-				if(elementData[i] == value) {
-					count++;
-				}
-			}
-			return count;
-		} else if(indexOf(value) == 0) {
-			return count;
-		} else {
-			return count;
+		SortedIntList temp = new SortedIntList(0); // Create and fill temporay copy of this 
+		for(int i = 0; i < size; i++) {
+			temp.add(elementData[i]);
 		}
+		
+		boolean lastNum = true; 
+		int count = 0;
+		while(lastNum == true) {
+			if (Arrays.binarySearch(temp.elementData, 0, size, value) < 0) {
+				return count;
+			}
+			if (elementData[Arrays.binarySearch(temp.elementData, 0, size, value)] == value) {
+				temp.remove(Arrays.binarySearch(temp.elementData, 0, size, value)]);
+				count++;
+			}
+		}
+		return count;
 	}
 	
 	/**
